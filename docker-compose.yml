@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+    server:
+        restart: always
+        #build:
+            #context: .
+            #dockerfile: ./docker/Dockerfile
+        image: yihui8776/elevation:v1  #openelevation/open-elevation
+        volumes:
+            #- "./data:/code/data"
+            - "./:/code"
+            - "./certs:/code/certs"
+        environment:
+            - PYTHONUNBUFFERED=1
+        #command: stdbuf -i0 -o0 -e0 python3 server.py
+        #command: stdbuf  service ssh start
+        ports:
+            - "8282:8080"
+            - "8445:8443"
+            - "8887:8888"
+            - "2222:22"
+
