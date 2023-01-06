@@ -165,14 +165,18 @@ curl -X POST \
 }
 ```
 
-## 坡度API
-其他类似高程API
-地址为  api/v1/getSlope 
+坡度API
+
+使用类似高程API
+## `GET /api/v1/getSlope`   
+## `POST /api/v1/getSlope` 
 
 例如 http://172.18.137.96:8282/api/v1/getSlope?locations=27.834,118.629
 
-## 坡向API
+坡向API
 
-地址为  api/v1/getAspect 
+## `GET /api/v1/getAspect`   
+## `POST /api/v1/getAspect` 
+
 
 例如 http://172.18.137.96:8282/api/v1/getAspect?locations=27.834,118.629
