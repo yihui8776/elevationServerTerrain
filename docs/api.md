@@ -1,23 +1,25 @@
 # Public API Documentation
 
-Open-Elevation's API is extremely simple -- after all, it fits a single, specific, simple task. There is **only one endpoint**, which is documented here.
-
+原始高程服务的 Open-Elevation's API 比较简单，基于python 的bottle框架，在config文件修改endpoint和data-folder即可
+只用单个服务文件 server.py
+返回的是高程
+   
 ## `GET /api/v1/lookup`
 
-Returns ("looks up") the elevation at one or more `(latitude,longitude)` points.
+返回 ("looks up")在一个或多个坐标点经纬度 `(latitude,longitude)` 的高程，即海拔高度；
 
-The GET API is limited to **1024** bytes in the request line. If you plan on making large requests, consider using the POST api.
+GET API 参数限制 **1024** bytes. 如果请求量大可以使用 POST api.
 
-### Parameters:
+### 参数:
 
-* **`locations`**: List of locations, separated by `|` in `latitude, longitude` format, similar to the Google Elevation API.
+* **`locations`**: 地点列表, 由`|` 分割 `latitude, longitude` 格式, 和 Google Elevation API 比较类似.
 
-### Response format
+### 返回格式 
 
-A JSON object with a single list of results, in the `results` field is returned. Each result contains `latitude`, `longitude` and `elevation`. The results are in the same order as the request parameters. **Elevation is in meters**.
+一个返回结果列表的json对象， `results` 里为结果，. 包括 `latitude`, `longitude` 和 `elevation`. 为经度，纬度和高程。 **高程单位是米**.
 
-If there is no recorded elevation at the provided coordinate, sea level (0 meters) is returned.
-
+如果是海平面（海拔为0米）则没有返回记录。
+ 
 ```json
 {
 	"results":
@@ -69,13 +71,13 @@ curl 'https://api.open-elevation.com/api/v1/lookup?locations=10,10|20,20|41.1617
 
 ## `POST /api/v1/lookup`
 
-Returns ("looks up") the elevation at one or more `(latitude,longitude)` points.
+返回一个或多个坐标点`(latitude,longitude)` 的 ("looks up") 高程    .
 
-The POST API currently has no limit
+POST API  无限制
 
 ### Parameters:
 
-* A JSON (and respective headers) is required with the format:
+*  JSON (and respective headers) 按以下格式:
 ```
 {
     "locations":
@@ -91,9 +93,8 @@ The POST API currently has no limit
 
 ### Response format
 
-A JSON object with a single list of results, in the `results` field is returned. Each result contains `latitude`, `longitude` and `elevation`. The results are in the same order as the request parameters. **Elevation is in meters**.
-
-If there is no recorded elevation at the provided coordinate, sea level (0 meters) is returned.
+结果列表的JSON对象,   `results` 字段是返回结果. 每个包括 `latitude`, `longitude` 和 `elevation`. 为经度，纬度和高程。 **高程单位是米**
+如果是海平面（海拔为0米）则没有返回记录。
 
 ```json
 {
@@ -163,3 +164,15 @@ curl -X POST \
    ]
 }
 ```
+
+## 坡度API
+其他类似高程API
+地址为  api/v1/getSlope 
+
+例如 http://172.18.137.96:8282/api/v1/getSlope?locations=27.834,118.629
+
+## 坡向API
+
+地址为  api/v1/getAspect 
+
+例如 http://172.18.137.96:8282/api/v1/getAspect?locations=27.834,118.629
